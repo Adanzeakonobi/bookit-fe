@@ -6,9 +6,10 @@ import vehicles from './vehicles/vehicles';
 const reducer = combineReducers({ user, vehicles, reservations });
 
 const store = createStore(
-    reducer,
-    applyMiddleware(
-        // add midelwheres here
-    ));
+  reducer,
+  applyMiddleware(
+    // add midelwheres here
+  ),
+);
 
 export default store;
