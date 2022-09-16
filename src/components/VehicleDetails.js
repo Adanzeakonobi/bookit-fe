@@ -1,12 +1,12 @@
 import { useParams } from 'react-router';
 
-function Reserve() {
+function VehicleDetails() {
   const { vehicleId } = useParams();
   return (
-    <div className="Reserve">
+    <div className="VehicleDetails">
       {vehicleId}
     </div>
   );
 }
 
-export default Reserve;
+export default VehicleDetails;
