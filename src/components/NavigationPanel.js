@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useLocation } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import { MdMenu } from 'react-icons/md';
 
-function NavigationPanel(props) {
-  const {
-    history,
-  } = props;
+function NavigationPanel() {
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   useEffect(() => {
-    history.listen(() => {
-      if (['/', '/sign_up'].includes(history.location.pathname)) setIsMenuOpen(false);
-    });
-  });
+    if (['/', '/sign_up'].includes(location.pathname)) setIsMenuOpen(false);
+  }, [location]);
   return (
     <div className="NavigationPanel">
       <div className={`nav-container ${isMenuOpen ? 'open' : ''}`}>
@@ -45,13 +41,4 @@ function NavigationPanel(props) {
   );
 }
 
-NavigationPanel.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  history: PropTypes.object,
-};
-
-NavigationPanel.defaultProps = {
-  history: window.history,
-};
-
-export default withRouter(NavigationPanel);
+export default NavigationPanel;
