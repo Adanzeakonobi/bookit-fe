@@ -1,30 +1,41 @@
+import { useEffect, useState } from 'react';
+import { withRouter, NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
 import { MdMenu } from 'react-icons/md';
-import { Link } from 'react-router-dom';
 
-function NavigationPanel() {
+function NavigationPanel(props) {
+  const {
+    history,
+  } = props;
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  useEffect(() => {
+    history.listen(() => {
+      if (['/', '/sign_up'].includes(history.location.pathname)) setIsMenuOpen(false);
+    });
+  });
   return (
     <div className="NavigationPanel">
-      <div className="nav-container">
-        <MdMenu className="nav-menu-icon" />
+      <div className={`nav-container ${isMenuOpen ? 'open' : ''}`}>
+        <MdMenu className="nav-menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)} />
         <div className="nav-collalpse">
-          <Link className="nav-brand" to="/main">Book.it</Link>
+          <NavLink className="nav-brand" to="/main">Book.it</NavLink>
           <Nav>
             <ul>
               <li>
-                <Link to="/main">Vehicles</Link>
+                <NavLink to="/main">Vehicles</NavLink>
               </li>
               <li>
-                <Link to="/reservation">Reserve</Link>
+                <NavLink to="/reservation">Reserve</NavLink>
               </li>
               <li>
-                <Link to="/user/reservations">My reservations</Link>
+                <NavLink to="/user/reservations">My reservations</NavLink>
               </li>
               <li>
-                <Link to="/vehicles/new">Add vehicle</Link>
+                <NavLink to="/vehicles/new">Add vehicle</NavLink>
               </li>
               <li>
-                <Link to="/vehicles">Delete vehicle</Link>
+                <NavLink to="/vehicles">Delete vehicle</NavLink>
               </li>
             </ul>
           </Nav>
@@ -34,4 +45,13 @@ function NavigationPanel() {
   );
 }
 
-export default NavigationPanel;
+NavigationPanel.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  history: PropTypes.object,
+};
+
+NavigationPanel.defaultProps = {
+  history: window.history,
+};
+
+export default withRouter(NavigationPanel);
