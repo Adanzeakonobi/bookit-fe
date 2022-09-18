@@ -7,6 +7,7 @@ import DeleteVehicle from './components/DeleteVehicle';
 import VehicleDetails from './components/VehicleDetails';
 import Reserve from './components/Reserve';
 import MyReservations from './components/MyReservations';
+import AddVehicle from './components/AddVehicle';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/sign_up" element={<SignUp />} />
         <Route path="/main" element={<Vehicles />} />
         <Route path="/vehicles" element={<DeleteVehicle />} />
+        <Route path="/vehicles/new" element={<AddVehicle />} />
         <Route path="/vehicles/:vehicleId/details" element={<VehicleDetails />} />
         <Route path="/vehicles/:vehicleId/reservation" element={<Reserve />} />
         <Route path="/reservation" element={<Reserve />} />
