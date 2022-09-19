@@ -1,3 +1,35 @@
-.nav-brand {
-  font-family: 'Bintton', sans-serif;                                            
+.NavigationPanel {
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    & > a {
+      display: block;
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.22rem;
+      font-weight: bold;
+      padding: 1em 1.2em;
+      text-transform: uppercase;
+
+      &.active {
+        display: block;
+        color: var(--bg-color);
+        background: var(--primary-color);
+        text-decoration: none;
+      }
+    }
+
+  }
+
+  .nav-brand {
+    display: inline-block;
+    font-family: 'Bintton', sans-serif;
+    font-size: 3rem;
+    color: var(--text-color);
+    transform: rotate(-12deg);
+  }
+
 }
