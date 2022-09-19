@@ -1,7 +1,12 @@
 .NavigationPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+
   ul {
     list-style: none;
-    padding: 0;
+    padding: calc(min(8rem, 10vh)) 0 0 0;
   }
 
   li {
@@ -21,15 +26,23 @@
         text-decoration: none;
       }
     }
+  }
 
+  .nav-container {
+    padding: 10px 0 10px 10px;
+    margin-left: -100%;
+    transition: 1s;
+
+    &.open {
+      margin-left: 0;
+    }
   }
 
   .nav-brand {
     display: inline-block;
     font-family: 'Bintton', sans-serif;
-    font-size: 3rem;
+    font-size: 4rem;
     color: var(--text-color);
     transform: rotate(-12deg);
   }
-
 }
