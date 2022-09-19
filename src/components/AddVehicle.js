@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 
 function AddVehicle() {
-  const errors = ['error 1', 'error 2'];
+  const [errors, setErrors] = useState([]);
   const [{
     id, price, name, image,
   }, setVehicle] = useState({});
@@ -24,8 +24,8 @@ function AddVehicle() {
         id, name, price, image: reader.result,
       });
     };
-    reader.onerror = (error) => {
-      console.log(error);
+    reader.onerror = () => {
+      setErrors([`Error occurred reading file: ${file.name}`]);
     };
   };
   const handleChange = (e) => {
