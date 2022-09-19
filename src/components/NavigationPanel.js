@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
-import { MdMenu } from 'react-icons/md';
+import { MdMenu, MdFacebook } from 'react-icons/md';
+import {
+  BsTwitter, BsGoogle, BsPinterest, BsInstagram,
+} from 'react-icons/bs';
 import '../styles/NavigationPanel.scss';
 
 function NavigationPanel() {
@@ -29,13 +32,30 @@ function NavigationPanel() {
                 <NavLink to="/user/reservations">My reservations</NavLink>
               </li>
               <li>
-                <NavLink to="/vehicles/new">Add vehicle</NavLink>
+                <NavLink to="/vehicle">Add vehicle</NavLink>
               </li>
               <li>
                 <NavLink to="/vehicles">Delete vehicle</NavLink>
               </li>
             </ul>
           </Nav>
+        </div>
+        <div className="nav-social-links">
+          <a href="#/">
+            <BsTwitter />
+          </a>
+          <a href="#/">
+            <MdFacebook />
+          </a>
+          <a href="#/">
+            <BsGoogle />
+          </a>
+          <a href="#/">
+            <BsInstagram />
+          </a>
+          <a href="#/">
+            <BsPinterest />
+          </a>
         </div>
       </div>
     </div>
