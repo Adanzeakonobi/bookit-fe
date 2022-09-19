@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import { MdMenu } from 'react-icons/md';
+import '../styles/NavigationPanel.scss';
 
 function NavigationPanel() {
   const location = useLocation();
