@@ -29,6 +29,7 @@ function VehicleDetails() {
           <p>{vehicle.description}</p>
         </div>
       </div>
+      <button type="submit" className="btn btn-primary add-btn mx-auto">Add to reservation</button>
     </div>
   );
 }
