@@ -40,7 +40,7 @@ function Vehicles() {
         <ul className="list-con">
           {vehicles.map((vehicle) => (
             <li className="list-group-item" key={vehicle.id}>
-              <Link to={`/vehicles/${vehicle.id}`}>
+              <Link to={`/vehicles/${vehicle.id}/details`}>
                 <div className="vehi-card">
                   <img className="card-img-top" src={vehicle.image} alt="Card cap" />
                   <div className="card-body">
