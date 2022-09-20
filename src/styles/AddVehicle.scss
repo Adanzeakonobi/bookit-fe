@@ -1,0 +1,51 @@
+.AddVehicle {
+  & > .container {
+    padding: 4rem;
+    min-height: 100vh;
+
+    button {
+      width: auto;
+      padding: 0 4rem;
+      margin: 4rem 0 0 auto;
+    }
+  }
+
+  .errors {
+    min-height: 5vh;
+
+    @media only screen and (min-width: 992px) {
+      min-height: 15vh;
+      max-height: 30vh;
+      overflow-y: auto;
+    }
+  }
+
+  .image-panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    min-height: 30vh;
+    margin-block: 1em;
+
+    @media only screen and (min-width: 992px) {
+      font-size: 2rem;
+      min-height: 70vh;
+      margin: 0;
+    }
+
+    &.dotted {
+      border: dashed 3px var(--secondary-color);
+    }
+
+    & > input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+}
