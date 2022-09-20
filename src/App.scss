@@ -1,0 +1,11 @@
+.App {
+  & > * {
+    transition: margin var(--menu-transition-time);
+  }
+
+  @media only screen and (min-width: 992px) {
+    & > .open + * {
+      margin-left: 250px;
+    }
+  }
+}
