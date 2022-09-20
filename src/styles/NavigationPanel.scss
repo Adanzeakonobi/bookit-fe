@@ -2,7 +2,20 @@
   position: fixed;
   top: 0;
   left: 0;
+  width: 250px;
   height: 100vh;
+  margin-left: -250px;
+  background: var(--bg-color);
+  z-index: 10;
+
+  &.open {
+    margin-left: 0;
+
+    .nav-menu-icon {
+      margin-left: 250px;
+      margin-top: -4rem;
+    }
+  }
 
   ul {
     list-style: none;
@@ -31,10 +44,9 @@
   .nav-container {
     display: flex;
     flex-direction: column;
+    position: relative;
     height: 100vh;
     padding: 20px 0 20px 20px;
-    margin-left: -100%;
-    transition: 1s;
     border-right: solid 3px var(--secondary-color);
 
     .nav-menu-icon {
@@ -42,18 +54,23 @@
       top: 1rem;
       left: 1rem;
       font-size: 2.5rem;
+      z-index: 9;
+      transition: margin var(--menu-transition-time);
+    }
+
+    .nav-close-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2.5rem;
+
+      @media only screen and (min-width: 992px) {
+        display: none;
+      }
     }
 
     .nav-collalpse {
       flex: 1 1 auto;
-    }
-
-    &.open {
-      margin-left: 0;
-
-      .nav-menu-icon {
-        margin-left: -4rem;
-      }
     }
   }
 

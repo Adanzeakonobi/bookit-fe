@@ -8,7 +8,7 @@ import VehicleDetails from './components/VehicleDetails';
 import Reserve from './components/Reserve';
 import MyReservations from './components/MyReservations';
 import AddVehicle from './components/AddVehicle';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (

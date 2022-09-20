@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { Nav } from 'react-bootstrap';
-import { MdMenu, MdFacebook } from 'react-icons/md';
+import { MdMenu, MdClose, MdFacebook } from 'react-icons/md';
 import {
   BsTwitter, BsGoogle, BsPinterest, BsInstagram,
 } from 'react-icons/bs';
@@ -10,17 +9,18 @@ import '../styles/NavigationPanel.scss';
 
 function NavigationPanel() {
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(!['/', '/sign_up'].includes(location.pathname));
   useEffect(() => {
     if (['/', '/sign_up'].includes(location.pathname)) setIsMenuOpen(false);
   }, [location]);
   return (
-    <div className="NavigationPanel">
-      <div className={`nav-container ${isMenuOpen ? 'open' : ''}`}>
+    <div className={`NavigationPanel ${isMenuOpen ? 'open' : ''}`}>
+      <div className="nav-container">
         <MdMenu className="nav-menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)} />
+        <MdClose className="nav-close-icon" onClick={() => setIsMenuOpen(!isMenuOpen)} />
         <div className="nav-collalpse">
           <NavLink className="nav-brand" to="/main">Book.it</NavLink>
-          <Nav>
+          <nav>
             <ul>
               <li>
                 <NavLink to="/main">Vehicles</NavLink>
@@ -38,7 +38,7 @@ function NavigationPanel() {
                 <NavLink to="/vehicles">Delete vehicle</NavLink>
               </li>
             </ul>
-          </Nav>
+          </nav>
         </div>
         <div className="nav-social-links">
           <a href="#/">
