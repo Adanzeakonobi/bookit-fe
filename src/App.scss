@@ -1,0 +1,31 @@
+.App {
+  & > * {
+    transition: margin var(--menu-transition-time);
+  }
+
+  @media only screen and (min-width: 992px) {
+    & > .open + * {
+      margin-left: 250px;
+    }
+  }
+
+  .btn-primary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--bg-color);
+    font-weight: bold;
+    font-size: 1.28rem;
+    border-radius: 1.8rem;
+    padding: 0.6rem 0.8rem;
+
+    &:hover {
+      color: var(--bg-color);
+    }
+
+    & > svg {
+      font-size: 2rem;
+    }
+  }
+}
