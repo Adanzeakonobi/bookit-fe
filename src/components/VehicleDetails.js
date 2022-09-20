@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 
 function VehicleDetails() {
@@ -29,7 +30,9 @@ function VehicleDetails() {
           <p>{vehicle.description}</p>
         </div>
       </div>
-      <button type="submit" className="btn btn-primary add-btn mx-auto">Add to reservation</button>
+      <Link to={`/vehicles/${vehicle.id}/reservation`}>
+        <button type="submit" className="btn btn-primary add-btn mx-auto">Add to reservation</button>
+      </Link>
     </div>
   );
 }
