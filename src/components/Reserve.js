@@ -3,63 +3,49 @@ import { useParams } from 'react-router';
 import {
   Container, Row, Col, Form, Button,
 } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { addReservation } from '../redux/reservations/reservations';
 
 function Reserve() {
-  const { vehicleId } = useParams();
-  const vehicles = [
-    {
-      id: 1,
-      name: 'vehicle 1',
-      description: 'This is a description for vehicle 1',
-      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      price: '$100',
-    },
-    {
-      id: 2,
-      name: 'vehicle 2',
-      description: 'This is a description for vehicle 2',
-      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      price: '$200',
-    },
-    {
-      id: 3,
-      name: 'vehicle 3',
-      description: 'This is a description for vehicle 3',
-      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      price: '$300',
-    },
-    {
-      id: 4,
-      name: 'vehicle 4',
-      description: 'This is a description for vehicle 4',
-      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      price: '$400',
-    },
-  ];
+  const dispatch = useDispatch();
+  const { vehicleId: urlVehicleId } = useParams();
+  const vehicles = useSelector((state) => state.vehicles.visible);
+  const user = useSelector((state) => state.user.user);
 
-  const [{
-    id, city, vehicle, date,
-  }, setReserve] = useState({});
+  const [reservation, setReserve] = useState({ user_id: user.id });
+  const {
+    city, date, vehicle_id: vehicleId,
+  } = reservation;
 
   const handleChange = (e) => {
     setReserve({
-      id, city, vehicle, date, [e.target.name]: e.target.value,
+      ...reservation, [e.target.name]: e.target.value,
     });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addReservation(reservation));
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Container className="reserve-cont">
         <Row>
           <Col lg={4}>
             <Row>
-              <Form.Select onChange={handleChange} name="vehicles_id" required disabled={vehicleId !== undefined}>
+              <Form.Select
+                onChange={handleChange}
+                name="vehicle_id"
+                value={vehicleId}
+                defaultValue={Number.parseInt(urlVehicleId || '-1', 10)}
+                required
+                disabled={urlVehicleId !== undefined}
+              >
                 <option value="" hidden>Select Vehicle</option>
                 {vehicles.map((vehicle) => (
                   <option
                     key={vehicle.id}
                     value={vehicle.id}
-                    selected={`${vehicle.id}` === `${vehicleId}`}
                   >
                     {vehicle.name}
                   </option>
