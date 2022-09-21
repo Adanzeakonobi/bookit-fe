@@ -2,13 +2,15 @@ import { useState } from 'react';
 import {
   Container, Row, Col, Alert, Form, Button,
 } from 'react-bootstrap';
+import { MdCheck } from 'react-icons/md';
+import { AiOutlineRightCircle } from 'react-icons/ai';
+import '../styles/AddVehicle.scss';
 
 function AddVehicle() {
   const [errors, setErrors] = useState([]);
   const [{
     id, price, name, image,
   }, setVehicle] = useState({});
-
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setVehicle({
@@ -34,9 +36,9 @@ function AddVehicle() {
     });
   };
   return (
-    <Form>
-      <Container className="AddVehicle">
-        <Row>
+    <Form className="AddVehicle">
+      <Container>
+        <Row className="errors">
           <Col>
             { errors.map((error) => (
               <Alert key={error} variant="danger">
@@ -45,11 +47,17 @@ function AddVehicle() {
             )) }
           </Col>
         </Row>
-        <Row>
+        <Row className="vehicle-contents">
           <Col lg={8}>
-            <div className="image-panel">
+            <div className={`image-panel ${(!image) && 'dotted'}`}>
               <input type="file" onChange={onSelectFile} />
-              {image ? <img src={image} alt={name} /> : 'Plese select an image' }
+              {image ? <img src={image} alt={name} className="img-fluid" /> : (
+                <>
+                  Click to select an image
+                  <br />
+                  Or drag an drop it here.
+                </>
+              ) }
             </div>
           </Col>
           <Col lg={4}>
@@ -60,7 +68,11 @@ function AddVehicle() {
               <Form.Control type="number" placeholder="Price" name="price" value={price} onChange={handleChange} />
             </Row>
             <Row>
-              <Button variant="primary" type="submit">Create</Button>
+              <Button variant="primary" type="submit">
+                <MdCheck />
+                Create
+                <AiOutlineRightCircle />
+              </Button>
             </Row>
           </Col>
         </Row>
@@ -68,5 +80,4 @@ function AddVehicle() {
     </Form>
   );
 }
-
 export default AddVehicle;
