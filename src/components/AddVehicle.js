@@ -89,5 +89,4 @@ function AddVehicle() {
     </Form>
   );
 }
-
 export default AddVehicle;
