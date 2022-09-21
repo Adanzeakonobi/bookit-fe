@@ -10,8 +10,29 @@ function VehicleDetails() {
       image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
       price: '$100',
     },
+    {
+      id: 2,
+      name: 'vehicle 2',
+      description: 'This is a description for vehicle 2',
+      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+      price: '$200',
+    },
+    {
+      id: 3,
+      name: 'vehicle 3',
+      description: 'This is a description for vehicle 3',
+      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+      price: '$300',
+    },
+    {
+      id: 4,
+      name: 'vehicle 4',
+      description: 'This is a description for vehicle 4',
+      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+      price: '$400',
+    },
   ];
-  const vehicle = vehicles[0];
+  const vehicle = vehicles[1];
   return (
     <div>
       <div>
