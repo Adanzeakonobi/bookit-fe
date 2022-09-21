@@ -11,7 +11,6 @@ function AddVehicle() {
   const [{
     id, price, name, image,
   }, setVehicle] = useState({});
-
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setVehicle({
@@ -81,5 +80,4 @@ function AddVehicle() {
     </Form>
   );
 }
-
 export default AddVehicle;
