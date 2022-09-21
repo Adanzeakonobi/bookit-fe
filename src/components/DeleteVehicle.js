@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function DeleteVehicle() {
-  const [vehicles] = useState([
+  const [vehicles, setvehicles] = useState([
     {
       id: 1,
       name: 'vehicle 1',
@@ -32,7 +32,11 @@ function DeleteVehicle() {
     },
   ]);
 
-  const handleDelete = (e) => {
+  const handleDelete = (id) => {
+    const newVehicle = vehicles.filter(
+      (vehicle) => vehicle.id !== id,
+    );
+    setvehicles(newVehicle);
   };
 
   return (
