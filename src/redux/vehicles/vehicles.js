@@ -1,3 +1,5 @@
+const ADDVEHICLE = 'bookit/vehicles/ADDVEHICLE';
+
 export default function reducer(state = {
   visible: [],
   all: [],
@@ -10,7 +12,20 @@ export default function reducer(state = {
   },
 }, action = {}) {
   switch (action.type) {
+    case ADDVEHICLE: {
+      const vehicle = { ...action.payload, id: Date.now() };
+      return {
+        ...state,
+        visible: [...state.visible, vehicle],
+        all: [...state.all, vehicle],
+      };
+    }
     default:
       return state;
   }
 }
+
+export const addVehicle = (vehicle) => ({
+  type: ADDVEHICLE,
+  payload: vehicle,
+});

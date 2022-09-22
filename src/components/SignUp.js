@@ -1,6 +1,15 @@
+import { Container, Row, Col } from 'react-bootstrap';
+import SignUpForm from './SignUpForm';
+
 function SignUp() {
   return (
-    <div className="SignUp" />
+    <Container>
+      <Row>
+        <Col>
+          <SignUpForm />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
