@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import user from './user/user';
+import user from './user/userSessions';
 import reservations from './reservations/reservations';
 import vehicles from './vehicles/vehicles';
 
