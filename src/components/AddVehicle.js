@@ -1,20 +1,25 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Container, Row, Col, Alert, Form, Button,
 } from 'react-bootstrap';
 import { MdCheck } from 'react-icons/md';
 import { AiOutlineRightCircle } from 'react-icons/ai';
+import { addVehicle } from '../redux/vehicles/vehicles';
 import '../styles/AddVehicle.scss';
 
 function AddVehicle() {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [{
-    id, price, name, image,
-  }, setVehicle] = useState({});
+  const [vehicle, setVehicle] = useState({});
+  const {
+    price, name, image,
+  } = vehicle;
+
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setVehicle({
-        id, name, price, image: undefined,
+        ...vehicle, image: undefined,
       });
       return;
     }
@@ -23,7 +28,7 @@ function AddVehicle() {
     reader.readAsDataURL(file);
     reader.onload = () => {
       setVehicle({
-        id, name, price, image: reader.result,
+        ...vehicle, image: reader.result,
       });
     };
     reader.onerror = () => {
@@ -32,11 +37,15 @@ function AddVehicle() {
   };
   const handleChange = (e) => {
     setVehicle({
-      id, name, price, image, [e.target.name]: e.target.value,
+      ...vehicle, [e.target.name]: e.target.value,
     });
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addVehicle(vehicle));
+  };
   return (
-    <Form className="AddVehicle">
+    <Form className="AddVehicle" onSubmit={handleSubmit}>
       <Container>
         <Row className="errors">
           <Col>
