@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Container, Row, Col, Alert, Form, Button,
 } from 'react-bootstrap';
@@ -8,13 +8,20 @@ import { AiOutlineRightCircle } from 'react-icons/ai';
 import { addVehicle } from '../redux/vehicles/vehicles';
 import '../styles/AddVehicle.scss';
 
+const DEFAULT_VALUES = {};
+
 function AddVehicle() {
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState([]);
-  const [vehicle, setVehicle] = useState({});
+  const notice = useSelector((state) => state.vehicles.notice);
+  const [localErrors, setLocalErrors] = useState([]);
+  const [vehicle, setVehicle] = useState({ ...DEFAULT_VALUES });
   const {
     price, name, image,
   } = vehicle;
+
+  useEffect(() => {
+    if (notice) setVehicle({ ...DEFAULT_VALUES });
+  }, [notice]);
 
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -32,7 +39,7 @@ function AddVehicle() {
       });
     };
     reader.onerror = () => {
-      setErrors([`Error occurred reading file: ${file.name}`]);
+      setLocalErrors([`Error occurred reading file: ${file.name}`]);
     };
   };
   const handleChange = (e) => {
@@ -49,7 +56,7 @@ function AddVehicle() {
       <Container>
         <Row className="errors">
           <Col>
-            { errors.map((error) => (
+            { localErrors.map((error) => (
               <Alert key={error} variant="danger">
                 {error}
               </Alert>
