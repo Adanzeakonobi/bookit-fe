@@ -1,4 +1,5 @@
 const ADDVEHICLE = 'bookit/vehicles/ADDVEHICLE';
+const DELETEVEHICLE = 'bookit/vehicles/DELETEVEHICLE';
 
 export default function reducer(state = {
   visible: [],
@@ -20,6 +21,19 @@ export default function reducer(state = {
         all: [...state.all, vehicle],
       };
     }
+    case DELETEVEHICLE: {
+      const newAll = state.all.map(
+        (vehicle) => {
+          const tempVehicle = { ...vehicle };
+          if (vehicle.id === action.payload) { tempVehicle.visible = false; }
+          return tempVehicle;
+        },
+      );
+      const newVisible = state.visible.filter(
+        (vehicle) => vehicle.id !== action.payload,
+      );
+      return { ...state, all: newAll, visible: newVisible };
+    }
     default:
       return state;
   }
@@ -28,4 +42,9 @@ export default function reducer(state = {
 export const addVehicle = (vehicle) => ({
   type: ADDVEHICLE,
   payload: vehicle,
+});
+
+export const deleteVehicle = (vehicleId) => ({
+  type: DELETEVEHICLE,
+  payload: vehicleId,
 });
