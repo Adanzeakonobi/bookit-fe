@@ -1,50 +1,45 @@
 .DeleteVehicle {
-    padding: 4rem;
-  
-    @media only screen and (max-width: 992px) {
+  padding: 4rem;
+
+  @media only screen and (max-width: 992px) {
     thead {
       display: none;
     }
-  
+
     tr {
       display: flex;
       flex-direction: column;
-  
+
       td {
         padding: 0.3rem 1.5rem;
         border-width: 0;
         text-align: right;
-  
+
         &:first-child {
           padding-top: 1rem;
         }
-  
+
         &:last-child {
           padding-bottom: 1rem;
         }
-  
+
         &::before {
           float: left;
           margin-right: 1rem;
         }
-  
+
         &:nth-child(1)::before {
           content: 'ID';
         }
-  
+
         &:nth-child(2)::before {
           content: 'Name';
         }
-  
-        &:nth-child(3)::before {
-          content: 'Price';
-        }
 
         &:nth-child(3)::before {
-            content: 'Action';
+          content: 'Price';
         }
       }
     }
   }
-  }
-  
+}
