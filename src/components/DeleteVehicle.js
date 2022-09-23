@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Table from 'react-bootstrap/Table';
+import '../styles/DeleteVehicle.scss';
 
 function DeleteVehicle() {
   const [vehicles, setvehicles] = useState([
@@ -44,17 +46,17 @@ function DeleteVehicle() {
   };
 
   return (
-    <div>
+    <div className="DeleteVehicle">
       <div className="text-center p-3 header-det">
         <h1>Vehicle List</h1>
       </div>
-      <table className="table">
+      <Table striped>
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Delete</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -86,7 +88,7 @@ function DeleteVehicle() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }

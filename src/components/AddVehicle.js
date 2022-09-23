@@ -11,7 +11,7 @@ import '../styles/AddVehicle.scss';
 function AddVehicle() {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [vehicle, setVehicle] = useState({});
+  const [vehicle, setVehicle] = useState({ visible: true });
   const {
     price, name, image,
   } = vehicle;
