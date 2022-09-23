@@ -1,22 +1,33 @@
 .vehicles-list-cont {
   height: 100vh;
+  padding: 0 4rem;
+  margin-top: 10vh;
+  text-decoration: none;
 }
 
 .vehi-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 80vw;
-  max-width: 350px;
-  height: 70vh;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 0;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  width: 30%;
+}
+
+.header-det {
+  margin-top: 20px;
 }
 
 .list-wrapper {
   overflow: hidden;
+  display: flex;
+  justify-content: space-evenly;
+  width: 84%;
+  margin: 2rem auto auto;
+
+  @media only screen and (min-width: 992px) {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 84%;
+    margin: 2rem auto auto;
+  }
 }
 
 .list-group-item {
@@ -24,27 +35,45 @@
 }
 
 .list-con {
-  // margin: 0;
-  // padding: 0;
   margin-left: 10px;
   gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-.card-img-top {
-  height: 70%;
-
-  @media only screen and (min-width: 992px) {
-    height: 70%;
-  }
+.viewCard-img-top {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 20px;
 }
 
-.card-text {
-  font-size: 12px;
-  margin-right: 10px;
+.viewCard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  width: 15rem;
+  padding-top: 20px;
 }
 
-.card-title {
-  margin-left: 10px;
+.viewCard-title,
+.viewCard-text {
+  color: var(--text-color);
+}
+
+.vehiLink-button {
+  text-decoration: none;
+}
+
+.item-icons {
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0;
+  list-style-type: none;
+  width: 15rem;
+}
+
+.socialImg {
+  color: #d8d8d9;
+  font-size: 30px;
 }
