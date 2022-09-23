@@ -11,7 +11,7 @@
   }
 
   .details-container {
-    min-height: 100vh;
+    min-height: 70vh;
   }
 
   .card-body {
@@ -20,12 +20,16 @@
     text-align: right;
   }
 
+  .aboutVehi {
+    text-align: right;
+  }
+
   .details-card {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    // height: 50vh;
   }
 
   img {
