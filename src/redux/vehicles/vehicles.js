@@ -4,7 +4,8 @@ const LOAD_SUCCESS = 'bookit/vehicles/LOAD_SUCCESS';
 const LOAD_FALURE = 'bookit/vehicles/LOAD_FALURE';
 const SHOW_SUCCESS = 'bookit/vehicles/SHOW_SUCCESS';
 const SHOW_FALURE = 'bookit/vehicles/SHOW_FALURE';
-const ADDVEHICLE = 'bookit/vehicles/ADDVEHICLE';
+const ADDVEHICLE_SUCCESS = 'bookit/vehicles/ADDVEHICLE_SUCCESS';
+const ADDVEHICLE_FALURE = 'bookit/vehicles/ADDVEHICLE_FALURE';
 const DELETEVEHICLE = 'bookit/vehicles/DELETEVEHICLE';
 
 export default function reducer(state = {
@@ -12,6 +13,7 @@ export default function reducer(state = {
   all: [],
   current: undefined,
   errors: [],
+  notice: undefined,
 }, action = {}) {
   switch (action.type) {
     case LOAD_SUCCESS: {
@@ -44,13 +46,16 @@ export default function reducer(state = {
         errors: [action.payload],
       };
     }
-    case ADDVEHICLE: {
-      const vehicle = { ...action.payload, id: Date.now() };
+    case ADDVEHICLE_SUCCESS: {
       return {
         ...state,
-        visible: [...state.visible, vehicle],
-        all: [...state.all, vehicle],
-        errors: [],
+        notice: action.payload,
+      };
+    }
+    case ADDVEHICLE_FALURE: {
+      return {
+        ...state,
+        notice: undefined,
       };
     }
     case DELETEVEHICLE: {
@@ -103,10 +108,21 @@ export const showVehicle = (vehicleId) => ((dispatch) => client
     },
   ));
 
-export const addVehicle = (vehicle) => ({
-  type: ADDVEHICLE,
-  payload: vehicle,
-});
+export const addVehicle = (vehicle) => ((dispatch) => client
+  .post('/vehicles', vehicle).then(
+    (response) => {
+      dispatch({
+        type: ADDVEHICLE_SUCCESS,
+        payload: response.data.messsage,
+      });
+    },
+    (error) => {
+      dispatch({
+        type: ADDVEHICLE_FALURE,
+        payload: error.response?.data.error || error.messsage,
+      });
+    },
+  ));
 
 export const deleteVehicle = (vehicleId) => ({
   type: DELETEVEHICLE,
