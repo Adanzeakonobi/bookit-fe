@@ -1,3 +1,7 @@
+import client from '../../utils/client';
+
+const LOAD_SUCCESS = 'bookit/vehicles/GET_VISIBLE_SUCCESS';
+const LOAD_FALURE = 'bookit/vehicles/GET_VISIBLE_FALURE';
 const ADDVEHICLE = 'bookit/vehicles/ADDVEHICLE';
 const DELETEVEHICLE = 'bookit/vehicles/DELETEVEHICLE';
 
@@ -13,6 +17,16 @@ export default function reducer(state = {
   },
 }, action = {}) {
   switch (action.type) {
+    case LOAD_SUCCESS: {
+      return {
+        ...state,
+        all: action.payload,
+        visible: action.payload.filter((vehicle) => vehicle.visible),
+      };
+    }
+    case LOAD_FALURE: {
+      return { ...state, visible: [], all: [] };
+    }
     case ADDVEHICLE: {
       const vehicle = { ...action.payload, id: Date.now() };
       return {
@@ -38,6 +52,24 @@ export default function reducer(state = {
       return state;
   }
 }
+
+export const loadVehicles = (dispatch) => client
+  .get('/vehicles').then(
+    (data) => {
+      dispatch({
+        type: LOAD_SUCCESS,
+        payload: data,
+      });
+      return Promise.resolve();
+    },
+    () => {
+      dispatch({
+        type: LOAD_FALURE,
+      });
+
+      return Promise.reject();
+    },
+  );
 
 export const addVehicle = (vehicle) => ({
   type: ADDVEHICLE,
