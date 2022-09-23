@@ -1,36 +1,14 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { loadVehicles } from '../redux/vehicles/vehicles';
 
 function Vehicles() {
-  const vehicles = [
-    {
-      id: 1,
-      name: 'vehicle 1',
-      description: 'This is a description for vehicle 1',
-      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      price: '$100',
-    },
-    {
-      id: 2,
-      name: 'vehicle 2',
-      description: 'This is a description for vehicle 2',
-      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      price: '$200',
-    },
-    {
-      id: 3,
-      name: 'vehicle 3',
-      description: 'This is a description for vehicle 3',
-      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      price: '$300',
-    },
-    {
-      id: 4,
-      name: 'vehicle 4',
-      description: 'This is a description for vehicle 4',
-      image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      price: '$400',
-    },
-  ];
+  const dispatch = useDispatch();
+  const vehicles = useSelector((state) => state.vehicles.visible);
+  useEffect(() => {
+    dispatch(loadVehicles());
+  }, []);
   return (
     <div className="vehicles-list-cont">
       <div>
