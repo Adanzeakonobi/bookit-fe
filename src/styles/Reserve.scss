@@ -1,0 +1,21 @@
+.ReserveVehicle {
+  background-image: url('../../public/vehicar.jpeg');
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: cover;
+  padding: 0 4rem;
+
+  .reserve-title {
+    color: var(--bg-color);
+    // text-align: center;
+  }
+
+  .reserve-row {
+    height: 100vh;
+  }
+
+  .btn-primary,
+  .btn-primary:hover {
+    border: solid 2px var(--bg-color);
+  }
+}

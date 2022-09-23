@@ -1,0 +1,50 @@
+.vehicles-list-cont {
+  height: 100vh;
+}
+
+.vehi-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  max-width: 350px;
+  height: 70vh;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.list-wrapper {
+  overflow: hidden;
+}
+
+.list-group-item {
+  border: 0 !important;
+}
+
+.list-con {
+  // margin: 0;
+  // padding: 0;
+  margin-left: 10px;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.card-img-top {
+  height: 70%;
+
+  @media only screen and (min-width: 992px) {
+    height: 70%;
+  }
+}
+
+.card-text {
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.card-title {
+  margin-left: 10px;
+}
