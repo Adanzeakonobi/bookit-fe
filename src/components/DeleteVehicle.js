@@ -1,60 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Table from 'react-bootstrap/Table';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteVehicle } from '../redux/vehicles/vehicles';
+import '../styles/DeleteVehicle.scss';
 
 function DeleteVehicle() {
-  const [vehicles, setvehicles] = useState([
-    {
-      id: 1,
-      name: 'vehicle 1',
-      description: 'This is a description for vehicle 1',
-      price: '$100',
-      visible: true,
-    },
-    {
-      id: 2,
-      name: 'vehicle 2',
-      description: 'This is a description for vehicle 2',
-      price: '$200',
-      visible: true,
-    },
-    {
-      id: 3,
-      name: 'vehicle 3',
-      description: 'This is a description for vehicle 3',
-      price: '$300',
-      visible: true,
-    },
-    {
-      id: 4,
-      name: 'vehicle 4',
-      description: 'This is a description for vehicle 4',
-      price: '$400',
-      visible: true,
-    },
-  ]);
+  const vehicles = useSelector((state) => state.vehicles.all);
+  const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    const newVehicle = vehicles.map(
-      (vehicle) => {
-        const temVehicle = vehicle;
-        if (vehicle.id === id) { temVehicle.visible = false; }
-        return temVehicle;
-      },
-    );
-    setvehicles(newVehicle);
+    dispatch(deleteVehicle(id));
   };
 
   return (
-    <div>
+    <div className="DeleteVehicle">
       <div className="text-center p-3 header-det">
         <h1>Vehicle List</h1>
       </div>
-      <table className="table">
+      <Table striped>
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Delete</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -73,6 +42,7 @@ function DeleteVehicle() {
 
               </td>
               <td>
+                {vehicle.action}
                 { vehicle.visible ? (
                   <button
                     type="submit"
@@ -86,7 +56,7 @@ function DeleteVehicle() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }
