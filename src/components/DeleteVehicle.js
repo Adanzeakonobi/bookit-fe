@@ -38,6 +38,7 @@ function DeleteVehicle() {
 
               </td>
               <td>
+                $
                 {vehicle.price}
 
               </td>

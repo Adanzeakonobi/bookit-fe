@@ -17,10 +17,13 @@ function Vehicles() {
     dispatch(loadVehicles());
   }, []);
   return (
-    <Carousel variant="dark">
+    <Carousel>
       <Carousel.Item className="vehicles-list-cont">
         <div className="text-center header-det">
           <h1>List of Vehicles</h1>
+        </div>
+        <div className="text-center subTitle">
+          <h6>Our vintage machine</h6>
         </div>
         <div className="list-wrapper">
           <ul className="d-flex list-con">
