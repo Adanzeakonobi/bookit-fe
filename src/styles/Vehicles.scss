@@ -73,11 +73,21 @@
 
 .carousel-control-next-icon,
 .carousel-control-prev-icon {
-  border-radius: 5px;
+  // border-radius: 5px;
   // background-color: var(--primary-color);
   background-color: green;
   width: 3.5rem !important;
   height: 2rem !important;
+  background-size: 2rem;
+  padding: 2rem;
+}
+
+.carousel-control-next-icon {
+  border-radius: 2rem 0 0 2rem;
+}
+
+.carousel-control-prev-icon {
+  border-radius: 0 2rem 2rem 0;
 }
 
 .subTitle {
