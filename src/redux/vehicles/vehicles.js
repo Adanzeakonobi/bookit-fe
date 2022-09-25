@@ -6,7 +6,8 @@ const SHOW_SUCCESS = 'bookit/vehicles/SHOW_SUCCESS';
 const SHOW_FALURE = 'bookit/vehicles/SHOW_FALURE';
 const ADDVEHICLE_SUCCESS = 'bookit/vehicles/ADDVEHICLE_SUCCESS';
 const ADDVEHICLE_FALURE = 'bookit/vehicles/ADDVEHICLE_FALURE';
-const DELETEVEHICLE = 'bookit/vehicles/DELETEVEHICLE';
+const DELETEVEHICLE_SUCCESS = 'bookit/vehicles/DELETEVEHICLE_SUCCESS';
+const DELETEVEHICLE_FAILURE = 'bookit/vehicles/DELETEVEHICLE_FAILURE';
 
 export default function reducer(state = {
   visible: [],
@@ -58,7 +59,7 @@ export default function reducer(state = {
         notice: undefined,
       };
     }
-    case DELETEVEHICLE: {
+    case DELETEVEHICLE_SUCCESS: {
       const newAll = state.all.map(
         (vehicle) => {
           const tempVehicle = { ...vehicle };
@@ -70,6 +71,12 @@ export default function reducer(state = {
         (vehicle) => vehicle.id !== action.payload,
       );
       return { ...state, all: newAll, visible: newVisible };
+    }
+    case DELETEVEHICLE_FAILURE: {
+      return {
+        ...state,
+        newAll: [],
+      };
     }
     default:
       return state;
@@ -124,7 +131,18 @@ export const addVehicle = (vehicle) => ((dispatch) => client
     },
   ));
 
-export const deleteVehicle = (vehicleId) => ({
-  type: DELETEVEHICLE,
-  payload: vehicleId,
-});
+export const deleteVehicle = (vehicleId) => ((dispatch) => client
+  .patch('/vehicles', vehicleId).then(
+    (response) => {
+      dispatch({
+        type: DELETEVEHICLE_SUCCESS,
+        payload: response,
+      });
+    },
+    (error) => {
+      dispatch({
+        type: DELETEVEHICLE_FAILURE,
+        payload: error,
+      });
+    },
+  ));
