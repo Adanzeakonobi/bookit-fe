@@ -1,4 +1,7 @@
-const ADDRESERVATION = 'bookit/reservations/ADDRESERVATION';
+import client from '../../utils/client';
+
+const ADDRESERVATION_SUCCESS = 'bookit/reservations/ADDRESERVATION_SUCCESS';
+const ADDRESERVATION_FAILURE = 'bookit/reservations/ADDRESERVATION_FAILURE';
 
 export default function reducer(state = [], action = {}) {
   switch (action.type) {
