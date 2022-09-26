@@ -28,7 +28,18 @@ export default function reducer(state = { reservations: [], error: undefined }, 
   }
 }
 
-export const addReservation = (reservation) => ({
-  type: ADDRESERVATION,
-  payload: reservation,
-});
+export const addReservation = (reservation) => ((dispatch) => client
+  .post('/reservations', reservation).then(
+    () => {
+      dispatch({
+        type: ADDRESERVATION_SUCCESS,
+        payload: reservation,
+      });
+    },
+    (error) => {
+      dispatch({
+        type: ADDRESERVATION_FAILURE,
+        payload: error?.message,
+      });
+    },
+  ));
