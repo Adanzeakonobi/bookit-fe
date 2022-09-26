@@ -1,35 +1,36 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Route, Redirect } from 'react-router';
+import { Navigate, Outlet } from 'react-router';
 import PropTypes from 'prop-types';
 import TokenManager from '../utils/tokenManger';
 
 const AuthMiddleWare = ({
-  component: Component,
+  children,
   layout: Layout,
   isAuthProtected,
-  ...rest
-}) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      if (isAuthProtected && !TokenManager.hasToken()) {
-        return <Redirect to={{ pathname: '/login' }} />;
-      }
+}) => {
+  console.log(isAuthProtected);
 
-      return (
-        <Layout>
-          <Component {...props} />
-        </Layout>
-      );
-    }}
-  />
-);
+  console.log(TokenManager.hasToken());
+
+  if (isAuthProtected && !TokenManager.hasToken()) {
+    return <Navigate to={{ pathname: '/login' }} />;
+  }
+
+  if (!isAuthProtected && TokenManager.hasToken()) {
+    return <Navigate to={{ pathname: '/main' }} />;
+  }
+
+  return (
+    <Layout>
+      {children || <Outlet />}
+    </Layout>
+  );
+};
 
 export default AuthMiddleWare;
 
 AuthMiddleWare.propTypes = {
-  component: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
   layout: PropTypes.func.isRequired,
   isAuthProtected: PropTypes.bool.isRequired,
 };
