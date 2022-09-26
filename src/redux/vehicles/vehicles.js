@@ -134,17 +134,16 @@ export const addVehicle = (vehicle) => ((dispatch) => client
 export const deleteVehicle = (vehicleId) => ((dispatch) => client
   // .patch('/vehicles/${vehicleId}', vehicleId).then(
   .patch(`/vehicles/${vehicleId}`, { visible: false }).then(
-    (response) => {
-      // console.log('response');
+    () => {
       dispatch({
         type: DELETEVEHICLE_SUCCESS,
-        payload: response,
+        payload: vehicleId,
       });
     },
     (error) => {
       dispatch({
         type: DELETEVEHICLE_FAILURE,
-        payload: error.vehicleId,
+        payload: error?.message,
       });
     },
   ));
