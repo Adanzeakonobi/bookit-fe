@@ -12,6 +12,7 @@ const initialUser = {
   id: null,
   username: null,
   email: null,
+  role: null,
 };
 
 const defaultState = {
@@ -92,7 +93,7 @@ export const logout = (navigate) => async (dispatch) => {
   try {
     await client.delete('users/sign_out');
     TokenManager.destroyToken();
-    navigate('/');
+    navigate('/login');
     dispatch(logoutSuccess());
   } catch (error) {
     dispatch(logoutError(error.message));

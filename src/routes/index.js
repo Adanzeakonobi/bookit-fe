@@ -1,4 +1,4 @@
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import Login from '../components/Login';
 import Logout from '../components/Logout';
@@ -40,8 +40,12 @@ const authProtectedRoutes = [
     component: MyReservations,
   },
   {
+    path: '/logout',
+    component: Logout,
+  },
+  {
     path: '*',
-    component: () => <Redirect to="/main" />,
+    component: () => <Navigate to="/main" />,
   },
 ];
 
@@ -49,10 +53,6 @@ const publicRoutes = [
   {
     path: '/login',
     component: Login,
-  },
-  {
-    path: '/logout',
-    component: Logout,
   },
   {
     path: '/signup',
