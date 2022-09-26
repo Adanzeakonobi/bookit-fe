@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router';
 import {
-  Container, Row, Col, Form, Button,
+  Container, Row, Col, Form, Button, Alert,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { addReservation } from '../redux/reservations/reservations';
@@ -11,9 +11,9 @@ function Reserve() {
   const dispatch = useDispatch();
   const { vehicleId: urlVehicleId } = useParams();
   const vehicles = useSelector((state) => state.vehicles.visible);
-  const user = useSelector((state) => state.user.user);
+  const error = useSelector((state) => state.reservations.error);
 
-  const [reservation, setReserve] = useState({ user_id: user.id });
+  const [reservation, setReserve] = useState({});
   const {
     city, date, vehicle_id: vehicleId,
   } = reservation;
@@ -37,6 +37,7 @@ function Reserve() {
           <Row className="reserve-row d-flex justify-content-around align-content-center">
             <Col lg={5}>
               <h1 className="reserve-title text-center">Book This Vehicle</h1>
+              {error && <Alert>{error}</Alert>}
               <Row>
                 <Form.Select
                   onChange={handleChange}
@@ -62,7 +63,7 @@ function Reserve() {
                 <Form.Control className="mb-3 w-lg-25" type="text" placeholder="City" name="city" value={city} onChange={handleChange} />
               </Row>
               <Row>
-                <Form.Control className="mb-3 w-lg-25" type="dateTime-local" placeholder="Date" name="date" value={date} onChange={handleChange} />
+                <Form.Control className="mb-3 w-lg-25" type="date" placeholder="Date" name="date" value={date} onChange={handleChange} />
               </Row>
               <Row>
                 <Button variant="primary" type="submit">Reserve</Button>

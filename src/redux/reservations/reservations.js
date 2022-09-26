@@ -1,17 +1,45 @@
-const ADDRESERVATION = 'bookit/reservations/ADDRESERVATION';
+import client from '../../utils/client';
 
-export default function reducer(state = [], action = {}) {
+const ADDRESERVATION_SUCCESS = 'bookit/reservations/ADDRESERVATION_SUCCESS';
+const ADDRESERVATION_FAILURE = 'bookit/reservations/ADDRESERVATION_FAILURE';
+
+export default function reducer(state = { reservations: [], error: undefined }, action = {}) {
   switch (action.type) {
-    case ADDRESERVATION: {
-      const reservation = { ...action.payload, id: Date.now() };
-      return [...state, reservation];
+    case ADDRESERVATION_SUCCESS: {
+      const {
+        city, date, vehicle_id: vehicleId,
+      } = action.payload;
+      const reservation = {
+        id: Date.now,
+        city,
+        date,
+        vehicle_id: vehicleId,
+      };
+      return { reservations: [...state.reservations, reservation] };
+    }
+    case ADDRESERVATION_FAILURE: {
+      return {
+        ...state,
+        error: action.payload,
+      };
     }
     default:
       return state;
   }
 }
 
-export const addReservation = (reservation) => ({
-  type: ADDRESERVATION,
-  payload: reservation,
-});
+export const addReservation = (reservation) => ((dispatch) => client
+  .post('/reservations', reservation).then(
+    () => {
+      dispatch({
+        type: ADDRESERVATION_SUCCESS,
+        payload: reservation,
+      });
+    },
+    (error) => {
+      dispatch({
+        type: ADDRESERVATION_FAILURE,
+        payload: error?.message,
+      });
+    },
+  ));
