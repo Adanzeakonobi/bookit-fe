@@ -61,6 +61,7 @@ function DeleteVehicle() {
           ))}
         </tbody>
       </Table>
+      {vehicles && vehicles.length === 0 && <div>There are no vehicles available</div> }
     </div>
   );
 }
