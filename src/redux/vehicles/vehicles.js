@@ -75,7 +75,7 @@ export default function reducer(state = {
     case DELETEVEHICLE_FAILURE: {
       return {
         ...state,
-        newAll: [],
+        errors: [action.payload],
       };
     }
     default:
@@ -132,8 +132,10 @@ export const addVehicle = (vehicle) => ((dispatch) => client
   ));
 
 export const deleteVehicle = (vehicleId) => ((dispatch) => client
-  .patch('/vehicles', vehicleId).then(
+  // .patch('/vehicles/${vehicleId}', vehicleId).then(
+  .patch(`/vehicles/${vehicleId}`, { visible: false }).then(
     (response) => {
+      // console.log('response');
       dispatch({
         type: DELETEVEHICLE_SUCCESS,
         payload: response,
@@ -142,7 +144,7 @@ export const deleteVehicle = (vehicleId) => ((dispatch) => client
     (error) => {
       dispatch({
         type: DELETEVEHICLE_FAILURE,
-        payload: error,
+        payload: error.vehicleId,
       });
     },
   ));
