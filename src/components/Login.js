@@ -9,7 +9,7 @@ import { login, setErrors } from '../redux/userSessions/userSessions';
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.user.error);
+  const error = useSelector((state) => state.userSessions.error);
   const [user, setUser] = useState({});
 
   const handleChange = (e) => {

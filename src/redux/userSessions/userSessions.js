@@ -72,10 +72,6 @@ const logoutRequest = () => ({ type: LOGOUT_REQUEST });
 const logoutSuccess = () => ({ type: LOGOUT_SUCCESS });
 const logoutError = (error) => ({ type: LOGOUT_ERROR, payload: error });
 
-export const setErrors = (error) => async (dispatch) => {
-  dispatch(loginFailure(error));
-};
-
 export const login = (user, navigate) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -101,4 +97,8 @@ export const logout = (navigate) => async (dispatch) => {
   } catch (error) {
     dispatch(logoutError(error.message));
   }
+};
+
+export const setErrors = (error) => async (dispatch) => {
+  dispatch(loginFailure(error));
 };
