@@ -3,11 +3,25 @@ import client from '../../utils/client';
 const ADDRESERVATION_SUCCESS = 'bookit/reservations/ADDRESERVATION_SUCCESS';
 const ADDRESERVATION_FAILURE = 'bookit/reservations/ADDRESERVATION_FAILURE';
 
-export default function reducer(state = [], action = {}) {
+export default function reducer(state = { reservations: [], error: undefined }, action = {}) {
   switch (action.type) {
-    case ADDRESERVATION: {
-      const reservation = { ...action.payload, id: Date.now() };
-      return [...state, reservation];
+    case ADDRESERVATION_SUCCESS: {
+      const {
+        city, date, vehicle_id: vehicleId,
+      } = action.payload;
+      const reservation = {
+        id: Date.now,
+        city,
+        date,
+        vehicle_id: vehicleId,
+      };
+      return { reservations: [...state.reservations, reservation] };
+    }
+    case ADDRESERVATION_FAILURE: {
+      return {
+        ...state,
+        error: action.payload,
+      };
     }
     default:
       return state;
