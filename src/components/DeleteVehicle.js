@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteVehicle } from '../redux/vehicles/vehicles';
+import { loadVehicles, deleteVehicle } from '../redux/vehicles/vehicles';
 import '../styles/DeleteVehicle.scss';
 
 function DeleteVehicle() {
   const vehicles = useSelector((state) => state.vehicles.all);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadVehicles());
+  }, []);
 
   const handleDelete = (id) => {
     dispatch(deleteVehicle(id));
