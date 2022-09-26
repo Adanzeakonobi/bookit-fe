@@ -1,8 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import userSessions from './user/userSessions';
-import userRegistrations from './user/userRegistrations';
+import userSessions from './userSessions/userSessions';
+import userRegistrations from './userRegistrations/userRegistrations';
 import reservations from './reservations/reservations';
 import vehicles from './vehicles/vehicles';
 
