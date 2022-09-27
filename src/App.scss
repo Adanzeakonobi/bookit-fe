@@ -47,10 +47,11 @@
 
     &.orange-background {
       background: var(--orange-color);
-      background-image: radial-gradient(
-        var(--orange-color-tint),
-        var(--orange-color)
-      );
+      background-image:
+        radial-gradient(
+          var(--orange-color-tint),
+          var(--orange-color)
+        );
     }
   }
 }
