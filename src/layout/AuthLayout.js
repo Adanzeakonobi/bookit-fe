@@ -4,10 +4,10 @@ import NavigationPanel from '../components/NavigationPanel';
 
 function AuthLayout({ children }) {
   return (
-    <div className="auth-layout">
+    <>
       <NavigationPanel />
       {children}
-    </div>
+    </>
   );
 }
 

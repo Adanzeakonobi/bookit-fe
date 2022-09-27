@@ -8,10 +8,6 @@ const AuthMiddleWare = ({
   layout: Layout,
   isAuthProtected,
 }) => {
-  console.log(isAuthProtected);
-
-  console.log(TokenManager.hasToken());
-
   if (isAuthProtected && !TokenManager.hasToken()) {
     return <Navigate to={{ pathname: '/login' }} />;
   }

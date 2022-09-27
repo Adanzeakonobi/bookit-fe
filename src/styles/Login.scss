@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../index.sass" as vars;
+
 .form-container {
   width: 25vw;
   min-width: 450px;
@@ -10,4 +13,21 @@
   border: 1px solid #e5e5e5;
   background: #fff;
   box-shadow: 0 0 30px 0 #cc8f00;
+
+  .form-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  a {
+    color: vars.$primary-color;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      color: color.scale(vars.$primary-color, $lightness: -20%);
+    }
+  }
 }
