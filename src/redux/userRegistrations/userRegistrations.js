@@ -8,6 +8,7 @@ const initialUser = {
   id: null,
   username: null,
   email: null,
+  role: null,
 };
 
 const defaultState = {

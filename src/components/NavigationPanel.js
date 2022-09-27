@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { MdMenu, MdClose, MdFacebook } from 'react-icons/md';
@@ -8,10 +9,11 @@ import {
 import '../styles/NavigationPanel.scss';
 
 function NavigationPanel() {
+  const user = useSelector((state) => state.userSessions.user);
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(!['/', '/sign_up'].includes(location.pathname));
   useEffect(() => {
-    if (['/', '/sign_up'].includes(location.pathname)) setIsMenuOpen(false);
+    if (['/login', '/signup'].includes(location.pathname)) setIsMenuOpen(false);
   }, [location]);
   return (
     <div className={`NavigationPanel ${isMenuOpen ? 'open' : ''}`}>
@@ -22,21 +24,37 @@ function NavigationPanel() {
           <NavLink className="nav-brand" to="/main">Book.it</NavLink>
           <nav>
             <ul>
-              <li>
-                <NavLink to="/main">Vehicles</NavLink>
-              </li>
-              <li>
-                <NavLink to="/reservation">Reserve</NavLink>
-              </li>
-              <li>
-                <NavLink to="/user/reservations">My reservations</NavLink>
-              </li>
-              <li>
-                <NavLink to="/vehicle">Add vehicle</NavLink>
-              </li>
-              <li>
-                <NavLink to="/vehicles">Delete vehicle</NavLink>
-              </li>
+              {user.id && (
+                <>
+                  <li>
+                    <NavLink to="/main">Vehicles</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/reservation">Reserve</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/user/reservations">My reservations</NavLink>
+                  </li>
+                  {user.role === 'admin' && (
+                    <>
+                      <li>
+                        <NavLink to="/vehicle">Add vehicle</NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/vehicles">Delete vehicle</NavLink>
+                      </li>
+                    </>
+                  )}
+                  <li>
+                    <NavLink to="/logout">Logout</NavLink>
+                  </li>
+                </>
+              )}
+              {!user.id && (
+                <li>
+                  <NavLink to="/login">Login</NavLink>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

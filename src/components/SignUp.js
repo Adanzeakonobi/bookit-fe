@@ -36,7 +36,7 @@ function SignUp() {
       <Row>
         <Col>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="username">
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
@@ -46,7 +46,7 @@ function SignUp() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="email">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
@@ -56,7 +56,7 @@ function SignUp() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
@@ -66,7 +66,7 @@ function SignUp() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="confirmPassword">
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control
                 type="password"
@@ -81,8 +81,8 @@ function SignUp() {
             </Button>
           </Form>
           <p>
-            <span>Don&apos;t have an account? </span>
-            <Link to="/sign_up">Sign Up Today!</Link>
+            <span>Already have an account? </span>
+            <Link to="/login">Login!</Link>
           </p>
           <div className="errors">
             {error && (

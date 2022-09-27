@@ -32,7 +32,7 @@ function Login() {
       <Row>
         <Col>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="email">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
@@ -42,7 +42,7 @@ function Login() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
@@ -58,7 +58,7 @@ function Login() {
           </Form>
           <p>
             <span>Don&apos;t have an account? </span>
-            <Link to="/sign_up">Sign Up Today!</Link>
+            <Link to="/signup">Sign Up Today!</Link>
           </p>
           <div className="errors">
             {error && (

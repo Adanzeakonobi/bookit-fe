@@ -1,5 +1,6 @@
 import client from '../../utils/client';
 import TokenManager from '../../utils/tokenManger';
+import UserObjectManager from '../../utils/userObjectManager';
 
 const LOGIN_REQUEST = 'bookit/userSessions/LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'bookit/userSessions/LOGIN_SUCCESS';
@@ -7,11 +8,13 @@ const LOGIN_FAILURE = 'bookit/userSessions/LOGIN_FAILURE';
 const LOGOUT_REQUEST = 'bookit/userSessions/LOGOUT_REQUEST';
 const LOGOUT_SUCCESS = 'bookit/userSessions/LOGOUT_SUCCESS';
 const LOGOUT_ERROR = 'bookit/userSessions/LOGOUT_ERROR';
+const SET_USER = 'bookit/userSessions/SET_USER';
 
 const initialUser = {
   id: null,
   username: null,
   email: null,
+  role: null,
 };
 
 const defaultState = {
@@ -60,6 +63,11 @@ export default function reducer(state = defaultState, action = {}) {
         loading: false,
         error: action.payload,
       };
+    case SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
     default:
       return state;
   }
@@ -72,6 +80,8 @@ const logoutRequest = () => ({ type: LOGOUT_REQUEST });
 const logoutSuccess = () => ({ type: LOGOUT_SUCCESS });
 const logoutError = (error) => ({ type: LOGOUT_ERROR, payload: error });
 
+export const setUser = (user) => ({ type: SET_USER, payload: user });
+
 export const login = (user, navigate) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -80,6 +90,7 @@ export const login = (user, navigate) => async (dispatch) => {
     const { data } = response.data;
     const token = response.headers.authorization;
     TokenManager.setToken(token);
+    UserObjectManager.setUserObject(data);
     dispatch(loginSuccess(data));
     navigate('/main');
   } catch (error) {
@@ -92,7 +103,8 @@ export const logout = (navigate) => async (dispatch) => {
   try {
     await client.delete('users/sign_out');
     TokenManager.destroyToken();
-    navigate('/');
+    UserObjectManager.destroyUserObject();
+    navigate('/login');
     dispatch(logoutSuccess());
   } catch (error) {
     dispatch(logoutError(error.message));
