@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import client from '../../utils/client';
 
 const SIGNUP_REQUEST = 'bookit/userRegistrations/SIGNUP_REQUEST';
@@ -67,11 +68,14 @@ export const signup = (userData, navigate) => async (dispatch) => {
     const { data } = response.data;
     dispatch(signupSuccess(data));
     navigate('/');
+    toast.success('Signup successful');
   } catch (error) {
     dispatch(signupFailure(error.message));
+    toast.error('Signup failed');
   }
 };
 
 export const setErrors = (error) => async (dispatch) => {
   dispatch(signupFailure(error));
+  toast.error(error);
 };
