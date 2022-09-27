@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { login, setErrors } from '../redux/userSessions/userSessions';
-import '../styles/Login.scss';
+import '../styles/Auth.scss';
 
 function Login() {
   const navigate = useNavigate();

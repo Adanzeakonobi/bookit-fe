@@ -24,37 +24,28 @@ function NavigationPanel() {
           <NavLink className="nav-brand" to="/main">Book.it</NavLink>
           <nav>
             <ul>
-              {user.id && (
+              <li>
+                <NavLink to="/main">Vehicles</NavLink>
+              </li>
+              <li>
+                <NavLink to="/reservation">Reserve</NavLink>
+              </li>
+              <li>
+                <NavLink to="/user/reservations">My reservations</NavLink>
+              </li>
+              {user.role === 'admin' && (
                 <>
                   <li>
-                    <NavLink to="/main">Vehicles</NavLink>
+                    <NavLink to="/vehicle">Add vehicle</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/reservation">Reserve</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/user/reservations">My reservations</NavLink>
-                  </li>
-                  {user.role === 'admin' && (
-                    <>
-                      <li>
-                        <NavLink to="/vehicle">Add vehicle</NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/vehicles">Delete vehicle</NavLink>
-                      </li>
-                    </>
-                  )}
-                  <li>
-                    <NavLink to="/logout">Logout</NavLink>
+                    <NavLink to="/vehicles">Delete vehicle</NavLink>
                   </li>
                 </>
               )}
-              {!user.id && (
-                <li>
-                  <NavLink to="/login">Login</NavLink>
-                </li>
-              )}
+              <li>
+                <NavLink to="/logout">Logout</NavLink>
+              </li>
             </ul>
           </nav>
         </div>
