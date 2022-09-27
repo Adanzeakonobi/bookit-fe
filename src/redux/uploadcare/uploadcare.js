@@ -22,7 +22,8 @@ export default function reducer(state = {
       return { ...state, auth: undefined, error: action.payload };
     }
     case UPLOAD: {
-      return { ...state,
+      return {
+        ...state,
         id: undefined,
         url: undefined,
       };
