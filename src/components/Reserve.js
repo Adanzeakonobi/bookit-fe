@@ -31,8 +31,11 @@ function Reserve() {
 
   useEffect(() => {
     dispatch(loadVehicles());
-    setReserve({ vehicle_id: vehicleId });
   }, []);
+
+  useEffect(() => {
+    setReserve({ ...reservation, vehicle_id: urlVehicleId });
+  }, [urlVehicleId]);
 
   return (
     <div
