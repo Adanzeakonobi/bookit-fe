@@ -1,5 +1,6 @@
 import client from '../../utils/client';
 
+const CLEAR_MESSAGES = 'bookit/vehicles/CLEAR_MESSAGES';
 const LOAD_SUCCESS = 'bookit/vehicles/LOAD_SUCCESS';
 const LOAD_FALURE = 'bookit/vehicles/LOAD_FALURE';
 const SHOW_SUCCESS = 'bookit/vehicles/SHOW_SUCCESS';
@@ -57,6 +58,7 @@ export default function reducer(state = {
       return {
         ...state,
         notice: undefined,
+        errors: action.payload,
       };
     }
     case DELETEVEHICLE_SUCCESS: {
@@ -76,6 +78,13 @@ export default function reducer(state = {
       return {
         ...state,
         errors: [action.payload],
+      };
+    }
+    case CLEAR_MESSAGES: {
+      return {
+        ...state,
+        errors: [],
+        notice: undefined,
       };
     }
     default:
@@ -115,21 +124,24 @@ export const showVehicle = (vehicleId) => ((dispatch) => client
     },
   ));
 
-export const addVehicle = (vehicle) => ((dispatch) => client
-  .post('/vehicles', vehicle).then(
-    (response) => {
-      dispatch({
-        type: ADDVEHICLE_SUCCESS,
-        payload: response.data.messsage,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: ADDVEHICLE_FALURE,
-        payload: error.response?.data.error || error.messsage,
-      });
-    },
-  ));
+export const addVehicle = (vehicle) => ((dispatch) => {
+  dispatch({ type: CLEAR_MESSAGES });
+  return client
+    .post('/vehicles', vehicle).then(
+      (response) => {
+        dispatch({
+          type: ADDVEHICLE_SUCCESS,
+          payload: response.data.message,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: ADDVEHICLE_FALURE,
+          payload: error.response?.data.error.split('. ') || [error.messsage],
+        });
+      },
+    );
+});
 
 export const deleteVehicle = (vehicleId) => ((dispatch) => client
   // .patch('/vehicles/${vehicleId}', vehicleId).then(
