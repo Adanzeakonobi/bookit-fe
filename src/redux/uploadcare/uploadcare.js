@@ -80,7 +80,7 @@ export const uploadFile = (auth, file) => ((dispatch) => {
         type: UPLOAD_SUCCESS,
         payload: {
           id,
-          url: `https://ucarecdn.com/${id}/${file.name}`,
+          url: `https://ucarecdn.com/${id}/${file.name.replace(' ', '_')}`,
         },
       });
     }),
