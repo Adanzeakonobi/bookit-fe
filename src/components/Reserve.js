@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import {
   Container, Row, Col, Form, Button, Alert,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { addReservation } from '../redux/reservations/reservations';
+import { loadVehicles } from '../redux/vehicles/vehicles';
 import '../styles/Reserve.scss';
 
 function Reserve() {
@@ -27,6 +28,11 @@ function Reserve() {
     e.preventDefault();
     dispatch(addReservation(reservation));
   };
+
+  useEffect(() => {
+    dispatch(loadVehicles());
+    setReserve({ vehicle_id: vehicleId });
+  }, []);
 
   return (
     <div
