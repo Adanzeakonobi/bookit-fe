@@ -31,7 +31,7 @@ function Login() {
     <Container>
       <Row>
         <Col>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} className="form-container">
             <Form.Group className="mb-3" controlId="email">
               <Form.Label>Email address</Form.Label>
               <Form.Control

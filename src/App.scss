@@ -18,7 +18,7 @@
     font-weight: bold;
     font-size: 1.28rem;
     border-radius: 1.8rem;
-    padding: 0.6rem 0.8rem;
+    padding: 0.4rem 0.8rem;
 
     &:hover {
       color: var(--bg-color);
@@ -36,5 +36,23 @@
 
   td {
     font-weight: 500;
+  }
+
+  .no-auth-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .orange-background {
+    background: --orange-color;
+    background-image: radial-gradient(--orange-color-tint, --orange-color);
+  }
+
+  .no-auth-layout > .card {
+    width: 100%;
+    max-width: 500px;
   }
 }
