@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../redux/userSessions/userSessions';
 
-function Login() {
+function Logout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -14,4 +14,4 @@ function Login() {
   return <></>;
 }
 
-export default Login;
+export default Logout;

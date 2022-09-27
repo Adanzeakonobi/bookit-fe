@@ -10,6 +10,7 @@ import '../styles/Reserve.scss';
 function Reserve() {
   const dispatch = useDispatch();
   const { vehicleId: urlVehicleId } = useParams();
+  console.log('here', urlVehicleId);
   const vehicles = useSelector((state) => state.vehicles.visible);
   const error = useSelector((state) => state.reservations.error);
 
