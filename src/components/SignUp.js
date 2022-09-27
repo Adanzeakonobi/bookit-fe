@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Container, Row, Col, Form, Button,
 } from 'react-bootstrap';
@@ -10,7 +10,6 @@ import '../styles/Auth.scss';
 function SignUp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.userRegistrations.error);
   const [user, setUser] = useState({});
 
   const handleChange = (e) => {
@@ -86,11 +85,6 @@ function SignUp() {
                 Submit
               </Button>
             </Form>
-            <div className="errors">
-              {error && (
-                <p>{error}</p>
-              )}
-            </div>
           </Col>
         </Row>
       </Container>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Container, Row, Col, Form, Button,
 } from 'react-bootstrap';
@@ -10,8 +10,9 @@ import '../styles/Auth.scss';
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.userSessions.error);
   const [user, setUser] = useState({});
+
+  const loginButton = useRef();
 
   const handleChange = (e) => {
     setUser({
@@ -20,6 +21,7 @@ function Login() {
   };
 
   const handleSubmit = (e) => {
+    loginButton.current.disabled = true;
     e.preventDefault();
     if (user.email && user.password) {
       dispatch(login(user, navigate));
@@ -58,15 +60,10 @@ function Login() {
                 <span>Don&apos;t have an account? </span>
                 <Link to="/signup">Sign Up!</Link>
               </p>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" ref={loginButton}>
                 Submit
               </Button>
             </Form>
-            <div className="errors">
-              {error && (
-                <p>{error}</p>
-              )}
-            </div>
           </Col>
         </Row>
       </Container>

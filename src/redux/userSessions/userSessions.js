@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import client from '../../utils/client';
 import TokenManager from '../../utils/tokenManger';
 import UserObjectManager from '../../utils/userObjectManager';
@@ -93,8 +94,10 @@ export const login = (user, navigate) => async (dispatch) => {
     UserObjectManager.setUserObject(data);
     dispatch(loginSuccess(data));
     navigate('/main');
+    toast.success("You've successfully logged in!");
   } catch (error) {
     dispatch(loginFailure(error.response.data.message));
+    toast.error(`There was an error logging in: ${error.response.data.message}`);
   }
 };
 
@@ -106,11 +109,14 @@ export const logout = (navigate) => async (dispatch) => {
     UserObjectManager.destroyUserObject();
     navigate('/login');
     dispatch(logoutSuccess());
+    toast("You've successfully logged out!");
   } catch (error) {
     dispatch(logoutError(error.message));
+    toast.error(error.response.data.message);
   }
 };
 
 export const setErrors = (error) => async (dispatch) => {
   dispatch(loginFailure(error));
+  toast.error(error);
 };

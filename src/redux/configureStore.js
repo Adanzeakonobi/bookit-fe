@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -18,7 +19,7 @@ const reducer = combineReducers({
 const store = createStore(
   reducer,
   applyMiddleware(
-    // add midelwheres here
+    // add midelwheres
     thunk,
     logger,
   ),
