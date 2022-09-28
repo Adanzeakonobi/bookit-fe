@@ -3,9 +3,11 @@ import { useParams } from 'react-router';
 import {
   Container, Row, Col, Form, Button, Alert,
 } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
-import { addReservation } from '../redux/reservations/reservations';
-import { loadVehicles } from '../redux/vehicles/vehicles';
+import { addReservation, setError } from '../redux/reservations/reservations';
+import { loadVehicles, showVehicle } from '../redux/vehicles/vehicles';
+
 import '../styles/Reserve.scss';
 
 function Reserve() {
@@ -13,20 +15,37 @@ function Reserve() {
   const { vehicleId: urlVehicleId } = useParams();
   const vehicles = useSelector((state) => state.vehicles.visible);
   const error = useSelector((state) => state.reservations.error);
+  const selectedVehicle = useSelector((state) => state.vehicles.current);
 
   const [reservation, setReserve] = useState({});
+  const [reservedDates, setReservedDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const {
-    city, date, vehicle_id: vehicleId,
+    city, vehicle_id: vehicleId,
   } = reservation;
 
   const handleChange = (e) => {
     setReserve({
       ...reservation, [e.target.name]: e.target.value,
     });
+    if (e.target.name === 'vehicle_id') {
+      dispatch(showVehicle(e.target.value));
+    }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addReservation(reservation));
+
+    const selectedDateString = selectedDate.toLocaleDateString();
+    const reservedDateStrings = reservedDates.map((date) => date.toLocaleDateString());
+
+    if (reservedDateStrings.includes(selectedDateString)) {
+      dispatch(setError('Sorry that date has already been booked.'));
+    } else {
+      reservation.date = selectedDate;
+      dispatch(addReservation(reservation));
+    }
   };
 
   useEffect(() => {
@@ -35,7 +54,18 @@ function Reserve() {
 
   useEffect(() => {
     setReserve({ ...reservation, vehicle_id: urlVehicleId });
+    dispatch(showVehicle(urlVehicleId));
   }, [urlVehicleId]);
+
+  useEffect(() => {
+    if (selectedVehicle?.reservations) {
+      const reservedDate = selectedVehicle.reservations.map(
+        (reservation) => new Date(reservation.date),
+      );
+
+      setReservedDates(reservedDate);
+    }
+  }, [selectedVehicle]);
 
   return (
     <div
@@ -72,7 +102,13 @@ function Reserve() {
                 <Form.Control className="mb-3 w-lg-25" type="text" placeholder="City" name="city" value={city} onChange={handleChange} />
               </Row>
               <Row>
-                <Form.Control className="mb-3 w-lg-25" type="date" placeholder="Date" name="date" value={date} onChange={handleChange} />
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  minDate={new Date()}
+                  excludeDates={reservedDates}
+                  className="mb-3 w-lg-25 form-control"
+                />
               </Row>
               <Row>
                 <Button variant="primary" type="submit">Reserve</Button>
