@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import client from '../../utils/client';
 
 const UPLOADCARE_PUB_KEY = '1e97b9a419c0477cb399';
@@ -53,9 +54,11 @@ export const getAuth = () => ((dispatch) => client
       });
     },
     (error) => {
+      const errors = error.response?.data.error.split('. ') || [error.messsage];
+      errors?.forEach((error) => toast.error(error));
       dispatch({
         type: AUTH_FALURE,
-        payload: error.response?.data || error.messsage,
+        payload: errors,
       });
     },
   ));
@@ -85,9 +88,11 @@ export const uploadFile = (auth, file) => ((dispatch) => {
       });
     }),
     (error) => {
+      const errors = [error.message];
+      errors?.forEach((error) => toast.error(error));
       dispatch({
         type: UPLOAD_FAILURE,
-        payload: error?.message,
+        payload: errors,
       });
     },
   );
