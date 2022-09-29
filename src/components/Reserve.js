@@ -75,7 +75,7 @@ function Reserve() {
                 <Form.Control className="mb-3 w-lg-25" type="date" placeholder="Date" name="date" value={date} onChange={handleChange} />
               </Row>
               <Row>
-                <Button variant="primary" type="submit">Reserve</Button>
+                <Button variant="primary" type="submit" className="reserve-btn">Reserve</Button>
               </Row>
             </Col>
           </Row>
