@@ -2,7 +2,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: 100vh;
   padding: 0 4rem;
   margin-top: 10vh;
 
@@ -11,7 +10,7 @@
   }
 
   .details-container {
-    min-height: 70vh;
+    min-height: max-content;
   }
 
   .card-body {
