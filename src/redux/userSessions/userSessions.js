@@ -96,8 +96,8 @@ export const login = (user, navigate) => async (dispatch) => {
     navigate('/main');
     toast.success("You've successfully logged in!");
   } catch (error) {
-    dispatch(loginFailure(error.response.data.message));
-    toast.error(`There was an error logging in: ${error.response.data.message}`);
+    dispatch(loginFailure(error.response.data));
+    toast.error(`There was an error logging in: ${error.response.data}`);
   }
 };
 
