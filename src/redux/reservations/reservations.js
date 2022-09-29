@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import client from '../../utils/client';
 
 const LOAD_SUCCESS = 'bookit/reservations/LOAD_SUCCESS';
@@ -5,6 +6,8 @@ const LOAD_FALURE = 'bookit/reservations/LOAD_FALURE';
 
 const ADDRESERVATION_SUCCESS = 'bookit/reservations/ADDRESERVATION_SUCCESS';
 const ADDRESERVATION_FAILURE = 'bookit/reservations/ADDRESERVATION_FAILURE';
+
+const SET_ERROR = 'bookit/reservations/SET_ERROR';
 
 export default function reducer(state = { reservations: [], error: undefined }, action = {}) {
   switch (action.type) {
@@ -32,6 +35,12 @@ export default function reducer(state = { reservations: [], error: undefined }, 
         error: action.payload,
       };
     }
+    case SET_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
     default:
       return state;
   }
@@ -46,25 +55,37 @@ export const loadReservations = () => ((dispatch) => client
       });
     },
     (error) => {
+      const errors = error.response?.data.error.split('. ') || [error.messsage];
+      errors?.forEach((error) => toast.error(error));
       dispatch({
         type: LOAD_FALURE,
-        payload: error.response?.data || error.messsage,
+        payload: errors,
       });
     },
   ));
 
 export const addReservation = (reservation) => ((dispatch) => client
   .post('/reservations', reservation).then(
-    () => {
+    (response) => {
+      const notice = response.data.message;
+      toast.success(notice);
       dispatch({
         type: ADDRESERVATION_SUCCESS,
         payload: reservation,
       });
     },
     (error) => {
+      const errors = error.response?.data.error.split('. ') || [error.messsage];
+      errors?.forEach((error) => toast.error(error));
       dispatch({
         type: ADDRESERVATION_FAILURE,
-        payload: error?.message,
+        payload: errors,
       });
     },
   ));
+
+export const setError = (error) => (
+  (dispatch) => dispatch({
+    type: SET_ERROR,
+    payload: error,
+  }));

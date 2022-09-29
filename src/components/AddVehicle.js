@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Container, Row, Col, Alert, Form, Button,
+  Container, Row, Col, Form, Button,
 } from 'react-bootstrap';
 import { MdCheck } from 'react-icons/md';
 import { AiOutlineRightCircle } from 'react-icons/ai';
@@ -19,7 +19,7 @@ const DEFAULT_VALUES = {
 function AddVehicle() {
   const dispatch = useDispatch();
   const {
-    vehicles: { notice, errors },
+    vehicles: { notice },
     uploadcare: { auth, url: imageUrl },
   } = useSelector((state) => state);
   const [vehicle, setVehicle] = useState({ ...DEFAULT_VALUES });
@@ -35,13 +35,12 @@ function AddVehicle() {
   }, [notice]);
 
   useEffect(() => {
-    if (imageUrl && uploading) {
+    if (imageUrl) {
       setVehicle({
         ...vehicle, image: imageUrl,
       });
-      setUploading(undefined);
     }
-  }, [imageUrl, uploading]);
+  }, [imageUrl]);
 
   useEffect(() => {
     if (!auth)dispatch(getAuth());
@@ -49,6 +48,7 @@ function AddVehicle() {
       dispatch(getAuth());
     } else if (uploading) {
       dispatch(uploadFile(auth, uploading));
+      setUploading(undefined);
     }
   }, [uploading, auth]);
 
@@ -77,17 +77,6 @@ function AddVehicle() {
         <Row className="errors align-items-end">
           <Col>
             <h1 className="text-center">Add Vehicle</h1>
-            {notice
-              && (
-              <Alert variant="success">
-                {notice}
-              </Alert>
-              )}
-            { errors.map((error) => (
-              <Alert key={error} variant="danger">
-                {error}
-              </Alert>
-            )) }
           </Col>
         </Row>
         <Row className="vehicle-contents">

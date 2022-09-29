@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import client from '../../utils/client';
 
 const CLEAR_MESSAGES = 'bookit/vehicles/CLEAR_MESSAGES';
@@ -92,70 +93,91 @@ export default function reducer(state = {
   }
 }
 
-export const loadVehicles = () => ((dispatch) => client
-  .get('/vehicles').then(
-    (response) => {
-      dispatch({
-        type: LOAD_SUCCESS,
-        payload: response.data.vehicles,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: LOAD_FALURE,
-        payload: error.response?.data || error.messsage,
-      });
-    },
-  ));
+export const loadVehicles = () => ((dispatch) => {
+  dispatch({ type: CLEAR_MESSAGES });
+  return client
+    .get('/vehicles').then(
+      (response) => {
+        dispatch({
+          type: LOAD_SUCCESS,
+          payload: response.data.vehicles,
+        });
+      },
+      (error) => {
+        const errors = error.response?.data.error.split('. ') || [error.messsage];
+        errors?.forEach((error) => toast.error(error));
+        dispatch({
+          type: LOAD_FALURE,
+          payload: errors,
+        });
+      },
+    );
+});
 
-export const showVehicle = (vehicleId) => ((dispatch) => client
-  .get(`/vehicles/${vehicleId}`).then(
-    (response) => {
-      dispatch({
-        type: SHOW_SUCCESS,
-        payload: response.data,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: SHOW_FALURE,
-        payload: error.response?.data || error.messsage,
-      });
-    },
-  ));
+export const showVehicle = (vehicleId) => ((dispatch) => {
+  dispatch({ type: CLEAR_MESSAGES });
+  return client
+    .get(`/vehicles/${vehicleId}`).then(
+      (response) => {
+        dispatch({
+          type: SHOW_SUCCESS,
+          payload: response.data,
+        });
+      },
+      (error) => {
+        const errors = error.response?.data.error.split('. ') || [error.messsage];
+        errors?.forEach((error) => toast.error(error));
+        dispatch({
+          type: SHOW_FALURE,
+          payload: errors,
+        });
+      },
+    );
+});
 
 export const addVehicle = (vehicle) => ((dispatch) => {
   dispatch({ type: CLEAR_MESSAGES });
   return client
     .post('/vehicles', vehicle).then(
       (response) => {
+        const notice = response.data.message;
+        toast.success(notice);
         dispatch({
           type: ADDVEHICLE_SUCCESS,
-          payload: response.data.message,
+          payload: notice,
         });
       },
       (error) => {
+        const errors = error.response?.data.error.split('. ') || [error.messsage];
+        errors?.forEach((error) => toast.error(error));
         dispatch({
           type: ADDVEHICLE_FALURE,
-          payload: error.response?.data.error.split('. ') || [error.messsage],
+          payload: errors,
         });
       },
     );
 });
 
-export const deleteVehicle = (vehicleId) => ((dispatch) => client
+export const deleteVehicle = (vehicleId) => ((dispatch) => {
+  dispatch({ type: CLEAR_MESSAGES });
+  return client
   // .patch('/vehicles/${vehicleId}', vehicleId).then(
-  .patch(`/vehicles/${vehicleId}`, { visible: false }).then(
-    () => {
-      dispatch({
-        type: DELETEVEHICLE_SUCCESS,
-        payload: vehicleId,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: DELETEVEHICLE_FAILURE,
-        payload: error?.message,
-      });
-    },
-  ));
+    .patch(`/vehicles/${vehicleId}`, { visible: false }).then(
+      () => {
+        const notice = 'Vehicle deleted';
+        toast.success(notice);
+        dispatch({
+          type: DELETEVEHICLE_SUCCESS,
+          payload: vehicleId,
+        });
+      },
+      (error) => {
+        const errors = error.response?.data.error.split('. ') || [error.messsage];
+        errors?.forEach((error) => toast.error(error));
+        dispatch({
+          type: DELETEVEHICLE_FAILURE,
+          payload: errors,
+        });
+      },
+    );
+});
