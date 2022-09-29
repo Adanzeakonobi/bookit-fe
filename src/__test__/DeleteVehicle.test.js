@@ -5,7 +5,7 @@ import store from '../redux/configureStore';
 import DeleteVehicle from '../components/DeleteVehicle';
 
 describe('testing adding vehicle', () => {
-  it('should render a button with the class of primary', () => {
+  it('checks the user can see', () => {
     const { getByText } = render(<Provider store={store}><DeleteVehicle /></Provider>);
     expect(getByText('Name')).toBeTruthy();
     expect(getByText('Price')).toBeTruthy();

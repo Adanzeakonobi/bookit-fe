@@ -13,7 +13,7 @@ describe('testing adding vehicle', () => {
     expect(getByPlaceholderText('Price')).toBeTruthy();
   });
 
-  test('upload file', () => {
+  it('upload file', () => {
     const file = new File(['vehicle'], 'vehicle.png', { type: 'image/png' });
 
     render(
