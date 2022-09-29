@@ -7,6 +7,8 @@ const LOAD_FALURE = 'bookit/reservations/LOAD_FALURE';
 const ADDRESERVATION_SUCCESS = 'bookit/reservations/ADDRESERVATION_SUCCESS';
 const ADDRESERVATION_FAILURE = 'bookit/reservations/ADDRESERVATION_FAILURE';
 
+const SET_ERROR = 'bookit/reservations/SET_ERROR';
+
 export default function reducer(state = { reservations: [], error: undefined }, action = {}) {
   switch (action.type) {
     case LOAD_SUCCESS: {
@@ -28,6 +30,12 @@ export default function reducer(state = { reservations: [], error: undefined }, 
       return { reservations: [...state.reservations, reservation] };
     }
     case ADDRESERVATION_FAILURE: {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
+    case SET_ERROR: {
       return {
         ...state,
         error: action.payload,
@@ -75,3 +83,9 @@ export const addReservation = (reservation) => ((dispatch) => client
       });
     },
   ));
+
+export const setError = (error) => (
+  (dispatch) => dispatch({
+    type: SET_ERROR,
+    payload: error,
+  }));
