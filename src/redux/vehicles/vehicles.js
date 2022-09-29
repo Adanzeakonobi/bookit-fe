@@ -104,7 +104,7 @@ export const loadVehicles = () => ((dispatch) => {
         });
       },
       (error) => {
-        const errors = error.response?.data.error.split('. ') || [error.messsage];
+        const errors = error.response?.data.error?.split('. ') || [error.response.data] || [error.messsage];
         errors?.forEach((error) => toast.error(error));
         dispatch({
           type: LOAD_FALURE,
@@ -125,7 +125,7 @@ export const showVehicle = (vehicleId) => ((dispatch) => {
         });
       },
       (error) => {
-        const errors = error.response?.data.error.split('. ') || [error.messsage];
+        const errors = error.response?.data.error?.split('. ') || [error.response.data] || [error.messsage];
         errors?.forEach((error) => toast.error(error));
         dispatch({
           type: SHOW_FALURE,
@@ -148,7 +148,7 @@ export const addVehicle = (vehicle) => ((dispatch) => {
         });
       },
       (error) => {
-        const errors = error.response?.data.error.split('. ') || [error.messsage];
+        const errors = error.response?.data.error?.split('. ') || [error.response.data] || [error.messsage];
         errors?.forEach((error) => toast.error(error));
         dispatch({
           type: ADDVEHICLE_FALURE,
@@ -172,7 +172,7 @@ export const deleteVehicle = (vehicleId) => ((dispatch) => {
         });
       },
       (error) => {
-        const errors = error.response?.data.error.split('. ') || [error.messsage];
+        const errors = error.response?.data.error?.split('. ') || [error.response.data] || [error.messsage];
         errors?.forEach((error) => toast.error(error));
         dispatch({
           type: DELETEVEHICLE_FAILURE,

@@ -55,7 +55,7 @@ export const loadReservations = () => ((dispatch) => client
       });
     },
     (error) => {
-      const errors = error.response?.data.error.split('. ') || [error.messsage];
+      const errors = error.response?.data.error?.split('. ') || [error.response.data] || [error.messsage];
       errors?.forEach((error) => toast.error(error));
       dispatch({
         type: LOAD_FALURE,
@@ -75,7 +75,7 @@ export const addReservation = (reservation) => ((dispatch) => client
       });
     },
     (error) => {
-      const errors = error.response?.data.error.split('. ') || [error.messsage];
+      const errors = error.response?.data.error?.split('. ') || [error.response.data] || [error.messsage];
       errors?.forEach((error) => toast.error(error));
       dispatch({
         type: ADDRESERVATION_FAILURE,

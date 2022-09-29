@@ -70,12 +70,12 @@ export const signup = (userData, navigate) => async (dispatch) => {
     navigate('/');
     toast.success('Signup successful');
   } catch (error) {
-    dispatch(signupFailure(error.message));
-    toast.error('Signup failed');
+    dispatch(signupFailure(error.response.data.message));
+    toast.error(`Signup failed: ${error.response?.data.message || error.response.data || error.messsage}`);
   }
 };
 
 export const setErrors = (error) => async (dispatch) => {
   dispatch(signupFailure(error));
-  toast.error(error);
+  toast.error(error[0]);
 };

@@ -8,6 +8,13 @@
 
 [Live demo](https://bookit-fe.netlify.app/)
 
+## Kanban board
+- [Kanban link](https://github.com/users/Danie12345/projects/4/views/1) 
+- Initial state
+![initial screenshot](https://user-images.githubusercontent.com/35552263/190486489-5c7e34a5-5727-44b7-9e57-5fa7a435fd21.png)
+-Final state
+![final screenshot](https://user-images.githubusercontent.com/98142626/193120741-65875a3e-4105-4ab9-bb20-cb15214653fa.png)
+
 
 ## Built With
 
@@ -39,6 +46,7 @@ To get a local copy follow these simple example steps.
 
 
 ## Author
+Group of 5 members:
 
 👤 **Emilia Zambrano**
 

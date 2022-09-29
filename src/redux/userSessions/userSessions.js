@@ -97,7 +97,7 @@ export const login = (user, navigate) => async (dispatch) => {
     toast.success("You've successfully logged in!");
   } catch (error) {
     dispatch(loginFailure(error.response.data));
-    toast.error(`There was an error logging in: ${error.response.data}`);
+    toast.error(`There was an error logging in: ${error.response?.data.message || error.response.data || error.messsage}`);
   }
 };
 
@@ -118,5 +118,5 @@ export const logout = (navigate) => async (dispatch) => {
 
 export const setErrors = (error) => async (dispatch) => {
   dispatch(loginFailure(error));
-  toast.error(error);
+  toast.error(error[0]);
 };

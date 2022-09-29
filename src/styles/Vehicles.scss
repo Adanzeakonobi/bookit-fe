@@ -1,7 +1,17 @@
 .vehicles-list-cont {
-  height: 100vh;
-  padding: 0 4rem;
+  @media only screen and (min-width: 992px) {
+    padding: 0 4rem;
+  }
+
   margin-top: 6vh;
+}
+
+@media only screen and (min-width: 992px) {
+  .carousel-inner {
+    height: 100vh;
+    align-items: center;
+    display: flex;
+  }
 }
 
 .vehi-card {
@@ -35,6 +45,7 @@
   width: 15rem;
   height: 15rem;
   border-radius: 20px;
+  object-fit: contain;
 }
 
 .viewCard-body {
