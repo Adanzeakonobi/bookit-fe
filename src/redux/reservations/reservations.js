@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import client from '../../utils/client';
 
 const LOAD_SUCCESS = 'bookit/reservations/LOAD_SUCCESS';
@@ -46,25 +47,31 @@ export const loadReservations = () => ((dispatch) => client
       });
     },
     (error) => {
+      const errors = error.response?.data.error.split('. ') || [error.messsage];
+      errors?.forEach((error) => toast.error(error));
       dispatch({
         type: LOAD_FALURE,
-        payload: error.response?.data || error.messsage,
+        payload: errors,
       });
     },
   ));
 
 export const addReservation = (reservation) => ((dispatch) => client
   .post('/reservations', reservation).then(
-    () => {
+    (response) => {
+      const notice = response.data.message;
+      toast.success(notice);
       dispatch({
         type: ADDRESERVATION_SUCCESS,
         payload: reservation,
       });
     },
     (error) => {
+      const errors = error.response?.data.error.split('. ') || [error.messsage];
+      errors?.forEach((error) => toast.error(error));
       dispatch({
         type: ADDRESERVATION_FAILURE,
-        payload: error?.message,
+        payload: errors,
       });
     },
   ));
