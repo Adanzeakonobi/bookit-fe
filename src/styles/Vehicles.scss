@@ -1,5 +1,8 @@
 .vehicles-list-cont {
-  height: 100vh;
+  @media only screen and (max-width: 992px) {
+    height: 100vh;
+  }
+
   padding: 0 4rem;
   margin-top: 6vh;
 }
