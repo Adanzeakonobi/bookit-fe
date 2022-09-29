@@ -1,10 +1,17 @@
 .vehicles-list-cont {
   @media only screen and (min-width: 992px) {
-    height: 100vh;
+    padding: 0 4rem;
   }
 
-  padding: 0 4rem;
   margin-top: 6vh;
+}
+
+@media only screen and (min-width: 992px) {
+  .carousel-inner {
+    height: 100vh;
+    align-items: center;
+    display: flex;
+  }
 }
 
 .vehi-card {

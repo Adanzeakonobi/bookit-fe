@@ -28,6 +28,7 @@ function Login() {
     } else {
       dispatch(setErrors(['Email and password are required']));
     }
+    loginButton.current.disabled = false;
   };
 
   return (

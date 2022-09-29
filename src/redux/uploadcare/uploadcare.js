@@ -54,7 +54,7 @@ export const getAuth = () => ((dispatch) => client
       });
     },
     (error) => {
-      const errors = error.response?.data.error.split('. ') || [error.messsage];
+      const errors = error.response?.data.error?.split('. ') || [error.response.data] || [error.messsage];
       errors?.forEach((error) => toast.error(error));
       dispatch({
         type: AUTH_FALURE,
