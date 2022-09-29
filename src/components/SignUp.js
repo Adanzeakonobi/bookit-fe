@@ -20,8 +20,8 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user.username && user.email && user.password && user.passwordConfirmation) {
-      if (user.password === user.passwordConfirmation) {
+    if (user.username && user.email && user.password && user.password_confirmation) {
+      if (user.password === user.password_confirmation) {
         dispatch(signup(user, navigate));
       } else {
         dispatch(setErrors(['Passwords do not match']));
@@ -73,7 +73,7 @@ function SignUp() {
                 <Form.Control
                   type="password"
                   placeholder="Confirm Password"
-                  name="passwordConfirmation"
+                  name="password_confirmation"
                   onChange={handleChange}
                 />
               </Form.Group>
