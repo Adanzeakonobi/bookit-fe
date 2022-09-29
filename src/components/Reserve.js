@@ -43,7 +43,7 @@ function Reserve() {
     if (reservedDateStrings.includes(selectedDateString)) {
       dispatch(setError('Sorry that date has already been booked.'));
     } else {
-      reservation.date = selectedDate;
+      [reservation.date] = selectedDate.toISOString().split('T');
       dispatch(addReservation(reservation));
     }
   };
