@@ -9,6 +9,7 @@ import { addReservation, setError } from '../redux/reservations/reservations';
 import { loadVehicles, showVehicle } from '../redux/vehicles/vehicles';
 
 import '../styles/Reserve.scss';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function Reserve() {
   const dispatch = useDispatch();
